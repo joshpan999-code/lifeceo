@@ -10,47 +10,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 检出代码
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 设置 Node.js（用于 Capacitor）
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
-      # 3. 安装 npm 依赖
       - name: Install npm dependencies
         run: |
           cd capacitor
           npm install
 
-      # 4. 设置 Java（用于 Android 构建）
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 5. 设置 Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # 6. 同步 Capacitor（生成 Android 项目文件）
-      - name: Sync Capacitor
+      - name: Add Android platform (if not exists)
         run: |
           cd capacitor
-          npx cap sync android
+          if [ ! -d "android" ]; then
+            npx cap add android
+          else
+            npx cap sync android
+          fi
 
-      # 7. 构建 Release APK
       - name: Build APK
         run: |
           cd capacitor/android
           chmod +x ./gradlew
           ./gradlew assembleRelease
 
-      # 8. 上传 APK 作为 Artifact
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
