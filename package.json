@@ -1,0 +1,33 @@
+{
+  "name": "lifeceo-app",
+  "version": "10.14.0",
+  "description": "人生CEO-CRM · 向上管理操作系统",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "npx cap sync android && npx cap open android",
+    "ios": "npx cap sync ios && npx cap open ios",
+    "build": "npm run build:web",
+    "build:web": "echo 'Web assets are in public/ directory'",
+    "cap:sync": "npx cap sync",
+    "cap:update": "npx cap update",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "typescript": "^5.3.0"
+  },
+  "keywords": [
+    "capacitor",
+    "lifeceo",
+    "crm",
+    "relationship-management"
+  ],
+  "author": "LifeCEO Team",
+  "license": "MIT"
+}
